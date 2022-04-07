@@ -1,0 +1,3 @@
+
+I choose to create Note Taking App website for my Project. In this website users should be able to add, edit and delete their notes. 
+
