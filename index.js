@@ -4,6 +4,8 @@ const path = require('path');
 
 
 const userRoutes = require("./server/routes/user");
+const noteRoutes = require('./server/routes/note');
+
 
 app.use(express.json()); //To parse JSON bodies (Applicable for Express 4.16+)
 
@@ -19,6 +21,8 @@ app.use(function(req, res, next) {
 });
 
 app.use("/users", userRoutes); 
+app.use("/notes", noteRoutes); 
+
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, ( ) => console.log(`Server started on port ${PORT}!`));

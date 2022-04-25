@@ -1,19 +1,18 @@
 const nav = document.querySelector('nav');
 if(getCurrentUser()) {
   nav.innerHTML = `
-    <ul>
-      <li><a href="whatnote.html">whatnote</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><a id="logout">Logout</a></li>
-    </ul>
+    <a href="whatnote.html">WhatNote</a>
+    <a href="profile.html">Profile</a>
+    <a id="logout">Logout</a>
+    
   `;
 } else {
   nav.innerHTML = `
-    <ul>
-      <li><a href="whatnote.html">whatnote</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="register.html">Register</a></li>
-    </ul>
+    
+      <a href="whatnote.html">WhatNote</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    
   `
 }
 
