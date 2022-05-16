@@ -12,26 +12,28 @@
     <h1>The Best NoteTaking App</h1>
     <h3>WhatNote</h3>
     <nav>
-     
+      
+      
     </nav>
   </header>
 
-  <form id="login-form">
-    <p class="error"></p>
-    <h2>Login</h2>
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username">
-    <br>
-    <label for="pswd">Password</label>
-    <input type="password" name="pswd" id="pswd">
-    <br>
-    <input type="submit" value="Login">
-  </form>
+  <div>
+
+    <h3>Notes for the user are: </h3><br><br>
+
+  <ul id="notes">
+    <!-- append notes here -->
+  </ul>
+
+  </div>
 
   <footer>
     <h6>WhatNote &copy;</h6>
   </footer>
+  
 </body>
 <script type="module" src="scripts/main.js"></script>
-<script type="module" src="scripts/user-script.js"></script>
+<script type="module" src="scripts/listnote.js"></script>
+
+<script src="domex.js"></script>
 </html>

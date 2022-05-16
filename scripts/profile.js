@@ -9,7 +9,7 @@ if(!user) window.location.href = "login.html";
 
 let profile = document.getElementById("profile");
 profile.innerHTML = `
-  <h2>Welcome back, ${user.userName}!</h2>
+  <h2>Welcome back, ${user.username}!</h2>
   <div>
     <p class="error"></p>
     <button class="btn" id="edit">Edit Info</button>
@@ -28,7 +28,7 @@ function editProfile() {
       <p class="error"></p>
       <h2>Edit Profile</h2>
       <label for="username">Change Username</label>
-      <input type="text" name="username" id="username" placeholder="${user.userName}">
+      <input type="text" name="username" id="username" placeholder="${user.username}">
       <br>
       <input type="submit" value="Submit">
     </form>
@@ -41,7 +41,7 @@ function editProfile() {
       <br>
       <input type="submit" value="Submit">
     </form>
-    <button class="btn" id="cancel">Cancel</button>
+    <button class="btn" id="cancel" >Cancel</button>
   `;
 
   editForm.addEventListener('submit', editAccount)
@@ -51,14 +51,23 @@ function editProfile() {
 }
 
 function editAccount(e) {
+
+
   e.preventDefault();
 
   let userName = document.getElementById("username").value;
-  if(userName === user.userName) {
+  let password = document.getElementById("pswd").value;
+
+  if(userName === user.username) {
     let err = "No changes made";
     document.querySelector("#editForm p.error").innerHTML = err;
-  } else {
-    fetchData('/users/edit', {userId: user.userId, userName: userName}, "PUT")
+  } 
+  if(password != "") {
+    console.log("password changing");
+    editAccountPass()
+  }
+  else {
+    fetchData('/users/edit', {userId: user.user_id, userName: userName}, "PUT")
     .then((data) => {
       if(!data.message) {
         removeCurrentUser();
@@ -76,9 +85,34 @@ function editAccount(e) {
   }
 }
 
+function editAccountPass() {
+
+  let password = document.getElementById("pswd").value;
+  console.log(password)
+    fetchData('/users/editPassword', {userId: user.user_id, password: password}, "PUT")
+    .then((data) => {
+      if(!data.message) {
+        removeCurrentUser();
+        setCurrentUser(data);
+        console.log(getCurrentUser())
+        window.location.href = "profile.html"
+      }
+    })
+ 
+    .catch((error) => {
+       const errText = error.message;
+       document.querySelector("#editForm p.error").innerHTML = errText;
+       console.log(`Error! ${errText}`)
+     });
+  
+  
+}
+
+
+
 function deleteAccount() {
   if(confirm('Are you sure you want to delete your account???')) {
-    fetchData('/users/delete', {userId: user.userId}, "DELETE")
+    fetchData('/users/delete', {userId: user.user_id}, "DELETE")
     .then((data) => {
       if(!data.message) {
         console.log(data.success)

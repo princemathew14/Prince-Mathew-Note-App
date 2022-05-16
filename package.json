@@ -1,24 +1,24 @@
 {
-  "name": "web-development-project",
+  "name": "bmi-app",
   "version": "1.0.0",
   "description": "",
-  "main": "domex.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/princemathew14/WhatNote.git"
-  },
-  "author": "",
+  "keywords": [
+    "bmi",
+    "health",
+    "example"
+  ],
+  "author": "Kaitlin Hoffmann",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/princemathew14/WhatNote/issues"
-  },
-  "homepage": "https://github.com/princemathew14/WhatNote#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

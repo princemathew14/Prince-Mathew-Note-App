@@ -3,9 +3,9 @@ const User = require('../models/user');
 const router = express.Router();
 
 router
-  .get('/', (req, res) => {
+  .get('/', async (req, res) => {
     try {
-      const users = User.getUsers();
+      const users = await User.getUsers();
       res.send(users);
     } catch(err) {
       res.status(401).send({message: err.message});
@@ -15,35 +15,47 @@ router
   .post('/login', async (req, res) => {
     try {
       const user = await User.login(req.body.username, req.body.password);
-      res.send({...user, password: undefined});
+      res.send({...user, user_password: undefined});
     } catch (error) {
       res.status(401).send({message: error.message});
     }
   })
 
-  .post('/register', (req, res) => {
+  .post('/register', async (req, res) => {
     try {
-      const user = User.register(req.body);
-      res.send({...user, password: undefined})
+      const user = await User.register(req.body);
+      console.log(user)
+      res.send({...user, user_password: undefined})
     } catch(error) {
       res.status(401).send({message: error.message});
     }
   })
 
-  .delete('/delete', (req, res) => {
+  .delete('/delete', async (req, res) => {
     try {
-      User.deleteUser(req.body.userId);
+      await User.deleteUser(req.body.userId);
       res.send({success: "We'll miss you...:("});
     } catch(error) {
       res.status(401).send({message: error.message});
     }
   })
 
-  .put('/edit', (req, res) => {
+  .put('/edit', async (req, res) => {
     try {
-      const user = User.editUser(req.body);
-      res.send({...user, password: undefined});
+      const user = await User.editUser(req.body);
+      console.log(user)
+      res.send({...user, user_password: undefined});
     } catch(error) {
+      res.status(401).send({message: error.message})
+    }
+  })
+
+  .put('/editPassword', async (req, res) => {
+    try {
+      const user = await User.editUserPassword(req.body);
+      res.send({...user, user_password: undefined});
+    } catch(error) {
+      console.log("Fref")
       res.status(401).send({message: error.message})
     }
   })

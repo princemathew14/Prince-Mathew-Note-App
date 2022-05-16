@@ -16,26 +16,23 @@
     </nav>
   </header>
 
-    <form id='registrationForm'>
-      <p class="error"></p>
-      <h2>REGISTER</h2>
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email">
-      <br>
-      <label for="pswd">Password</label>
-      <input type="password" name="pswd" id="pswd">
-      <br>
-      <label for="birthday">Birthday:</label>
-       <input type="date" id="birthday" name="birthday">
-       <br>
-      <input type="submit" value="Register">
-    </form>
+  <form class="basic-form" id="reg-form">
+    <p class="error"></p>
+    <h2>Register</h2>
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username">
+    <br>
+    <label for="pswd">Password</label>
+    <input type="password" name="pswd" id="pswd">
+    <br>
+    <input type="submit" value="Register">
+  </form>
 
   <footer>
     <h6>WhatNote &copy;</h6>
   </footer>
 </body>
 <script type="module" src="scripts/main.js"></script>
-<script type="module" src="login_read.js"></script>
+<script type="module" src="scripts/user-script.js"></script>
 <script src="user.js"></script>
 </html>
