@@ -21,14 +21,14 @@ front-end
 back-end
 
 ` `Node
-` ` javascript
-` ` sql
-` ` express
+` `javascript
+` `sql
+` `express
 
                                                
 4. Include a screenshot of your finished ERD
 
-![](images/image1.png1)
+![](images/image1.png)
 
 **ENTITIES**
 
