@@ -19,6 +19,7 @@ front-end
 ` `Javascript   
 
 back-end
+
 ` `Node
 ` ` javascript
 ` ` sql
@@ -27,7 +28,7 @@ back-end
                                                
 4. Include a screenshot of your finished ERD
 
-![](images/image1.png1.png)
+![](images/image1.png1)
 
 **ENTITIES**
 
