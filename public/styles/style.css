@@ -1,0 +1,122 @@
+/* utilities */
+.purple-hr {
+  border-bottom: 2px solid rgb(87, 79, 145);
+  width: 150px;
+  margin: auto;
+}
+
+.clear {
+  clear: left;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; /* get rid of space above */
+  padding: 0;
+}
+
+/* header */
+header {
+  background-color: rgb(70, 87, 134);
+  text-align: center;
+  padding: 25px; /* add some padding to get rid of white space on top*/
+}
+
+header h1 { 
+  font-size: 30px;
+}
+
+h1, h3 {
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+/* nav bar in header element */
+nav {
+  margin: 30px;
+}
+
+nav a {
+  color: rgb(231, 231, 222);
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+nav a:hover, .active {
+  color: rgb(216, 216, 212);
+  background-color: slateblue;
+}
+
+/* footer */
+footer {
+  height: 100px;
+  background-color: rgb(143, 132, 69);
+  color: white;
+}
+
+footer h6 {
+  margin-top:0;
+  text-align: center;
+  padding-top: 45px;
+}
+
+
+
+/* ========================== */
+/* BELOW IS FOR login.html and Register.html */
+/* ========================== */
+
+form {
+  box-shadow: 0 0 5px rgb(107, 105, 138);
+  width: max-content;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 30px auto;
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px;
+  border: 1px solid rgb(136, 141, 69);
+}
+
+input[type="submit"] {
+  background-color: rgb(23, 7, 131);
+  color: white;
+  border: none;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+}
+
+
+#notes {
+  list-style: none;
+  display: table;
+  margin: 0 auto;
+}
+
+.note {
+  width: 800px;
+  height: 400px;
+  margin: 30px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.delete {
+  width: 25px;
+  height:25px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  float: right;
+}
+
+.delete:hover {
+  background-color: darkred;
+}
+

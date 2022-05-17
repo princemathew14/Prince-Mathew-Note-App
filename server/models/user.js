@@ -32,6 +32,7 @@ async function getUser(user) {
 }
 
 async function login(username, password) {
+  console.log("login called");
   const user = await userExists(username);
   if(!user[0]) throw Error('User not found')
   if(user[0].user_password !== password) throw Error("Password is incorrect");
