@@ -4,6 +4,8 @@ const path = require('path');
 
 const userRoutes = require('./server/routes/user');
 const noteRoutes = require('./server/routes/note');
+const profileRoutes = require('./server/routes/profile');
+
 
 app.use(express.json()); //To parse JSON bodies (Applicable for Express 4.16+)
 
@@ -20,6 +22,8 @@ app.use(function(req, res, next) {
 
 app.use("/users", userRoutes);
 app.use("/notes", noteRoutes);
+app.use("/profile", profileRoutes);
+
 
 
 const PORT = process.env.PORT || 80;

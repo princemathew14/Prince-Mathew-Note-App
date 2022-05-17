@@ -1,4 +1,6 @@
 const con = require("./db_connect");
+const Profile = require('../models/profile');
+
 
 async function createTable() {
   let sql = `CREATE TABLE IF NOT EXISTS users (
@@ -32,10 +34,17 @@ async function getUser(user) {
 }
 
 async function login(username, password) {
-  console.log("login called");
   const user = await userExists(username);
   if(!user[0]) throw Error('User not found')
   if(user[0].user_password !== password) throw Error("Password is incorrect");
+
+  //After login update login date for the user
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+  let data = {'user_id': user[0].user_id, 'last_login':date + ' ' + time}
+  await Profile.edit_last_login(data);
 
   return user[0];
 }
@@ -50,6 +59,19 @@ async function register(user) {
 
   const insert = await con.query(sql);
   const newUser = await getUser(user);
+
+  //After register update profile entry for the user with date_created
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+
+  let data = {'user_id': newUser[0].user_id, 'date_created':date + ' ' + time}
+  console.log(data);
+  console.log(newUser);
+
+  await Profile.createProfile(data);
+
   return newUser[0];
 }
 

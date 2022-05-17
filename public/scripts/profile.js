@@ -1,5 +1,5 @@
 import 
-{ getCurrentUser, setCurrentUser, removeCurrentUser, logout, fetchData } 
+{ getCurrentUser, setCurrentUser, removeCurrentUser, logout, fetchData ,getData} 
 from './main.js'
 
 
@@ -8,6 +8,7 @@ let user = getCurrentUser();
 if(!user) window.location.href = "login.html";
 
 let profile = document.getElementById("profile");
+
 profile.innerHTML = `
   <h2>Welcome back, ${user.username}!</h2>
   <div>
@@ -17,12 +18,16 @@ profile.innerHTML = `
   </div>
 `;
 
+await getProfile();
+
 document.getElementById("edit").addEventListener('click', editProfile);
 document.getElementById("delete").addEventListener('click', deleteAccount);
 
 function editProfile() {
   profile.classList.toggle("hide");
   let editForm = document.getElementById("editForm");
+  let passForm = document.getElementById("passForm");
+  let captionForm = document.getElementById("captionForm");
   editForm.innerHTML = `
     <form id="form" class="basic-form">
       <p class="error"></p>
@@ -31,9 +36,11 @@ function editProfile() {
       <input type="text" name="username" id="username" placeholder="${user.username}">
       <br>
       <input type="submit" value="Submit">
-    </form>
+    </form>`;
 
-    <form id="passForm" class="basic-form">
+  passForm.innerHTML = `
+
+    <form id="pForm" class="basic-form">
       <p class="error"></p>
       <h2>Change Password</h2>
       <label for="pswd">Change Password</label>
@@ -41,10 +48,25 @@ function editProfile() {
       <br>
       <input type="submit" value="Submit">
     </form>
+  `;
+
+  captionForm.innerHTML = `
+
+    <form id="cForm" class="basic-form">
+      <p class="error"></p>
+      <h2>Change Caption</h2>
+      <label for="cap">Change Caption</label>
+      <input type="text" name="cap" id="cap">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
     <button class="btn" id="cancel" >Cancel</button>
   `;
 
   editForm.addEventListener('submit', editAccount)
+  passForm.addEventListener('submit', editAccountPass)
+  captionForm.addEventListener('submit', editCaption)
+
   document.getElementById("cancel").addEventListener('click', (e) => {
     window.location.href = "profile.html";
   })
@@ -61,10 +83,6 @@ function editAccount(e) {
   if(userName === user.username) {
     let err = "No changes made";
     document.querySelector("#editForm p.error").innerHTML = err;
-  } 
-  if(password != "") {
-    console.log("password changing");
-    editAccountPass()
   }
   else {
     fetchData('/users/edit', {userId: user.user_id, userName: userName}, "PUT")
@@ -72,7 +90,10 @@ function editAccount(e) {
       if(!data.message) {
         removeCurrentUser();
         setCurrentUser(data);
-        window.location.href = "profile.html"
+        const Text = "Success :)";
+        document.querySelector("#editForm p.error").innerHTML = Text;
+       
+        //window.location.href = "profile.html"
       }
     })
  
@@ -85,8 +106,39 @@ function editAccount(e) {
   }
 }
 
-function editAccountPass() {
+function getProfile() {
+ 
+  let url = '/profile/get_profile/' + getCurrentUser().user_id;
+  console.log(url);
+  getData(url, "GET")
+  .then((data) => { //cathy123, 12345
+    console.log(data);
 
+    profile.innerHTML = `
+    <h2>Welcome back, ${user.username}!</h2>
+    <h2>My Caption : ${data[0].caption}</h2>
+    <h4>Date Created :  ${data[0].date_created}</h2>
+    <h4>Last Login   : ${data[0].last_login}</h2>
+    <div>
+      <p class="error"></p>
+      <button class="btn" id="edit">Edit Info</button>
+      <button class="btn" id="delete">Delete Account</button>
+    </div>
+  `;
+
+  document.getElementById("edit").addEventListener('click', editProfile);
+document.getElementById("delete").addEventListener('click', deleteAccount);
+    return data
+
+
+  });
+
+}
+
+function editAccountPass(e) {
+
+
+  e.preventDefault();
   let password = document.getElementById("pswd").value;
   console.log(password)
     fetchData('/users/editPassword', {userId: user.user_id, password: password}, "PUT")
@@ -95,17 +147,45 @@ function editAccountPass() {
         removeCurrentUser();
         setCurrentUser(data);
         console.log(getCurrentUser())
-        window.location.href = "profile.html"
+        const Text = "Success";
+        document.querySelector("#passForm p.error").innerHTML = Text;
+       
+        //window.location.href = "profile.html"
       }
     })
  
     .catch((error) => {
        const errText = error.message;
-       document.querySelector("#editForm p.error").innerHTML = errText;
+       document.querySelector("#passForm p.error").innerHTML = errText;
        console.log(`Error! ${errText}`)
      });
-  
-  
+}
+
+function editCaption(e) {
+
+  e.preventDefault();
+  console.log('change caption');
+
+  let caption = document.getElementById("cap").value;
+  console.log(caption)
+    fetchData('/profile/caption', {user_id: user.user_id, caption: caption}, "PUT")
+    .then((data) => {
+      if(!data.message) {
+        
+        const Text = "Success";
+        document.querySelector("#captionForm p.error").innerHTML = Text;
+       
+        //window.location.href = "profile.html"
+      }
+    })
+ 
+    .catch((error) => {
+       const errText = error.message;
+       document.querySelector("#captionForm p.error").innerHTML = errText;
+       console.log(`Error! ${errText}`)
+     });
+
+
 }
 
 
